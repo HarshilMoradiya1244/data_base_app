@@ -30,21 +30,15 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.category))
         ],
       ),
-      body: Column(
-        children: [
-          Expanded(
-            child: Obx(() => ListView.builder(
-                itemCount: controller.dataList.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("${controller.dataList[index].title}",style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
-                    trailing: Text("${controller.dataList[index].amount}",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
-                  );
-                },
-              ),
-            ),
-          )
-        ],
+      body: Obx => ListView.builder(
+          itemCount: controller.dataList.length,
+          itemBuilder: (context, index) {
+            return ListTile(
+              title: Text("${controller.dataList[index].title}",style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
+              trailing: Text("${controller.dataList[index].amount}",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
+            );
+          },
+        ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
