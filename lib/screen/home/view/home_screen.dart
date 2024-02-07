@@ -30,7 +30,7 @@ class _HomeScreenState extends State<HomeScreen> {
               icon: const Icon(Icons.category))
         ],
       ),
-      body: Obx => ListView.builder(
+      body: Obx(() => ListView.builder(
           itemCount: controller.dataList.length,
           itemBuilder: (context, index) {
             return ListTile(
