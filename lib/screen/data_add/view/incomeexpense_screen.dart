@@ -108,6 +108,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                         );
                         DbHelper dbHelper = DbHelper();
                         dbHelper.insertData(dbmodel);
+                        Get.back();
                       },
                       child: Container(
                         height: MediaQuery.sizeOf(context).height * 0.06,
@@ -132,20 +133,33 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                     width: 10,
                   ),
                   Expanded(
-                    child: Container(
-                      height: MediaQuery.sizeOf(context).height * 0.06,
-                      width: MediaQuery.sizeOf(context).width * 0.1,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5),
-                          color: Colors.red),
-                      child: const Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Expense",
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white),
+                    child: InkWell(
+                      onTap: (){DBModel dbmodel = DBModel(
+                        title: txtTitle.text,
+                        amount: txtAmount.text,
+                        category: txtCategory.text,
+                        notes: txtNotes.text,
+                        status: 1,
+                      );
+                      DbHelper dbHelper = DbHelper();
+                      dbHelper.insertData(dbmodel);
+                        Get.back();
+                      },
+                      child: Container(
+                        height: MediaQuery.sizeOf(context).height * 0.06,
+                        width: MediaQuery.sizeOf(context).width * 0.1,
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5),
+                            color: Colors.red),
+                        child: const Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "Expense",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 20,
+                                color: Colors.white),
+                          ),
                         ),
                       ),
                     ),

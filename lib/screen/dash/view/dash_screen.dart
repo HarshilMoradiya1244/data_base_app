@@ -1,6 +1,7 @@
 import 'package:data_base/screen/dash/controller/dash_controller.dart';
+import 'package:data_base/screen/home/view/home_screen.dart';
 import 'package:data_base/screen/graph/view/graph_screen.dart';
-import 'package:data_base/screen/home/view/incomeexpense_screen.dart';
+import 'package:data_base/screen/data_add/view/incomeexpense_screen.dart';
 import 'package:data_base/screen/setting/view/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class _DashScreenState extends State<DashScreen> {
   DashController controller = Get.put(DashController());
 
   List screen = [
-    const IncomeExpenseScreen(),
+    const HomeScreen(),
     const GraphScreen(),
     const SettingScreen(),
   ];
