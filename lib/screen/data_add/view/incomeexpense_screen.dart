@@ -29,13 +29,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Income Expanse"),
-          actions: [
-            IconButton(
-                onPressed: () {
-                  Get.toNamed("category");
-                },
-                icon: const Icon(Icons.category))
-          ],
+
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),

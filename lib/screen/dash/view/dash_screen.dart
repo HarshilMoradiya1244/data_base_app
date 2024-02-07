@@ -1,7 +1,8 @@
+import 'dart:ffi';
+
 import 'package:data_base/screen/dash/controller/dash_controller.dart';
 import 'package:data_base/screen/home/view/home_screen.dart';
 import 'package:data_base/screen/graph/view/graph_screen.dart';
-import 'package:data_base/screen/data_add/view/incomeexpense_screen.dart';
 import 'package:data_base/screen/setting/view/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,7 +17,7 @@ class DashScreen extends StatefulWidget {
 class _DashScreenState extends State<DashScreen> {
   DashController controller = Get.put(DashController());
 
-  List screen = [
+  List<Widget> screen = [
     const HomeScreen(),
     const GraphScreen(),
     const SettingScreen(),
@@ -26,7 +27,14 @@ class _DashScreenState extends State<DashScreen> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: Obx(() => screen[controller.stepIndex.value]),
+        body: Obx(() => PageView(
+          controller: controller.pageController.value,
+          onPageChanged: (value) {
+            screen[controller.stepIndex.value];
+          },
+          children: screen,
+        )),
+
         bottomNavigationBar: NavigationBar(
           selectedIndex: controller.stepIndex.value,
           destinations: const [
