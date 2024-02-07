@@ -1,6 +1,7 @@
 import 'package:data_base/model/incomeExpense_model.dart';
 import 'package:data_base/utils/dta_base_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class IncomeExpenseScreen extends StatefulWidget {
   const IncomeExpenseScreen({super.key});
@@ -22,7 +23,9 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Income Expanse"),
-          actions: [IconButton(onPressed: (){}, icon: const Icon(Icons.category))],
+          actions: [IconButton(onPressed: (){
+            Get.toNamed("category");
+          }, icon: const Icon(Icons.category))],
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -30,7 +33,9 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
             children: [
               TextFormField(
                 controller: txtTitle,
-                decoration: const InputDecoration(label: Text("Title")),
+                decoration: const InputDecoration(label: Text("Title"),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Please Enter The Title";
@@ -38,9 +43,14 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                   return null;
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
                 controller: txtAmount,
-                decoration: const InputDecoration(label: Text("Amount")),
+                decoration: const InputDecoration(label: Text("Amount"),
+                  border: OutlineInputBorder(),
+                ),
                 keyboardType: TextInputType.number,
                 validator: (value) {
                   if (value!.isEmpty) {
@@ -49,9 +59,14 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                   return null;
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
                 controller: txtCategory,
-                decoration: const InputDecoration(label: Text("Category")),
+                decoration: const InputDecoration(label: Text("Category"),
+                  border: OutlineInputBorder(),
+                ),
                 validator: (value) {
                   if (value!.isEmpty) {
                     return "Category Is Required";
@@ -59,9 +74,14 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                   return null;
                 },
               ),
+              const SizedBox(
+                height: 10,
+              ),
               TextFormField(
                 controller: txtNotes,
-                decoration: const InputDecoration(label: Text("Notes")),
+                decoration: const InputDecoration(label: Text("Notes"),
+                  border: OutlineInputBorder(),
+                ),
               ),
               const SizedBox(
                 height: 10,

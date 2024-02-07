@@ -1,3 +1,4 @@
+import 'package:data_base/screen/category/view/category_screen.dart';
 import 'package:data_base/screen/dash/view/dash_screen.dart';
 import 'package:data_base/screen/graph/view/graph_screen.dart';
 import 'package:data_base/screen/home/view/incomeexpense_screen.dart';
@@ -10,4 +11,5 @@ Map<String, WidgetBuilder> app_routes = {
   'home': (context) => const IncomeExpenseScreen(),
   'graph': (context) => const GraphScreen(),
   'setting': (context) => const SettingScreen(),
+  'category': (context) => const CategoryScreen(),
 };
