@@ -1,4 +1,5 @@
 import 'package:data_base/model/incomeExpense_model.dart';
+import 'package:data_base/screen/category/controller/category_controller.dart';
 import 'package:data_base/utils/dta_base_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,17 +16,26 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtCategory = TextEditingController();
   TextEditingController txtNotes = TextEditingController();
+  CategoryController controller = Get.put(CategoryController());
 
   @override
+  void initState() {
+    super.initState();
+    controller.getCategory();
+  }
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Income Expanse"),
-          actions: [IconButton(onPressed: (){
-            Get.toNamed("category");
-          }, icon: const Icon(Icons.category))],
+          actions: [
+            IconButton(
+                onPressed: () {
+                  Get.toNamed("category");
+                },
+                icon: const Icon(Icons.category))
+          ],
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -33,7 +43,8 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
             children: [
               TextFormField(
                 controller: txtTitle,
-                decoration: const InputDecoration(label: Text("Title"),
+                decoration: const InputDecoration(
+                  label: Text("Title"),
                   border: OutlineInputBorder(),
                 ),
                 validator: (value) {
@@ -48,7 +59,8 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
               ),
               TextFormField(
                 controller: txtAmount,
-                decoration: const InputDecoration(label: Text("Amount"),
+                decoration: const InputDecoration(
+                  label: Text("Amount"),
                   border: OutlineInputBorder(),
                 ),
                 keyboardType: TextInputType.number,
@@ -62,24 +74,31 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
               const SizedBox(
                 height: 10,
               ),
-              TextFormField(
-                controller: txtCategory,
-                decoration: const InputDecoration(label: Text("Category"),
-                  border: OutlineInputBorder(),
+              Obx(
+                () => DropdownButton(
+                  isExpanded: true,
+                  value: controller.selectedCategory.value,
+                  hint: const Text("Select"),
+                  items: controller.categoryList
+                      .map(
+                        (e) => DropdownMenuItem(
+                          value: "${e['name']}",
+                          child: Text("${e['name']}"),
+                        ),
+                      )
+                      .toList(),
+                  onChanged: (value) {
+                    controller.selectedCategory.value = value as String;
+                  },
                 ),
-                validator: (value) {
-                  if (value!.isEmpty) {
-                    return "Category Is Required";
-                  }
-                  return null;
-                },
               ),
               const SizedBox(
                 height: 10,
               ),
               TextFormField(
                 controller: txtNotes,
-                decoration: const InputDecoration(label: Text("Notes"),
+                decoration: const InputDecoration(
+                  label: Text("Notes"),
                   border: OutlineInputBorder(),
                 ),
               ),
@@ -134,15 +153,16 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                   ),
                   Expanded(
                     child: InkWell(
-                      onTap: (){DBModel dbmodel = DBModel(
-                        title: txtTitle.text,
-                        amount: txtAmount.text,
-                        category: txtCategory.text,
-                        notes: txtNotes.text,
-                        status: 1,
-                      );
-                      DbHelper dbHelper = DbHelper();
-                      dbHelper.insertData(dbmodel);
+                      onTap: () {
+                        DBModel dbmodel = DBModel(
+                          title: txtTitle.text,
+                          amount: txtAmount.text,
+                          category: txtCategory.text,
+                          notes: txtNotes.text,
+                          status: 1,
+                        );
+                        DbHelper dbHelper = DbHelper();
+                        dbHelper.insertData(dbmodel);
                         Get.back();
                       },
                       child: Container(

@@ -1,4 +1,7 @@
+import 'package:data_base/screen/category/controller/category_controller.dart';
+import 'package:data_base/utils/dta_base_helper.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class CategoryScreen extends StatefulWidget {
   const CategoryScreen({super.key});
@@ -10,16 +13,18 @@ class CategoryScreen extends StatefulWidget {
 class _CategoryScreenState extends State<CategoryScreen> {
   TextEditingController txtCategory = TextEditingController();
   var key = GlobalKey<FormState>();
+  CategoryController controller = Get.put(CategoryController());
 
   @override
   void initState() {
     super.initState();
+    controller.getCategory();
   }
 
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Form(
-        key: key,
+    return Form(
+      key: key,
+      child: SafeArea(
         child: Scaffold(
           appBar: AppBar(
             centerTitle: true,
@@ -43,26 +48,47 @@ class _CategoryScreenState extends State<CategoryScreen> {
                     }
                   },
                 ),
-                const SizedBox(height: 25,),
+                const SizedBox(
+                  height: 25,
+                ),
                 ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (key.currentState!.validate()) {
+                      DbHelper helper = DbHelper();
+                      helper.insertCategory(name: txtCategory.text);
+                      controller.getCategory();
+                    }
+                  },
                   child: const Text("Add Category"),
                 ),
-                SizedBox(height: 25,),
+                const SizedBox(
+                  height: 25,
+                ),
                 Expanded(
-                  child: ListView.builder(
-                    itemCount: 2,
-                    itemBuilder: (context, index) {
-                      return Column(
-                        children: [
-                          ListTile(
-                            title: Text("CAtegoryName"),
-                            trailing: IconButton(onPressed: (){},icon: const Icon(Icons.delete_outline),),
-                          ),
-                          const Divider()
-                        ],
-                      );
-                    },
+                  child: Obx(
+                    () => ListView.builder(
+                      itemCount: controller.categoryList.length,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            ListTile(
+                              title: Text(
+                                  '${controller.categoryList[index]['name']}'),
+                              trailing: IconButton(
+                                onPressed: () {
+                                  DbHelper helper = DbHelper();
+                                  helper.categoryDelete(
+                                      id: "${controller.categoryList[index]['id']}");
+                                  controller.getCategory();
+                                },
+                                icon: const Icon(Icons.delete_outline),
+                              ),
+                            ),
+                            const Divider()
+                          ],
+                        );
+                      },
+                    ),
                   ),
                 )
               ],

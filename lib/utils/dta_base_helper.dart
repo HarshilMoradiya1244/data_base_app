@@ -64,7 +64,10 @@ class DbHelper {
     return modelList;
   }
 
-  void deleteData() {}
+  Future<void> categoryDelete({required String id}) async {
+    dataBase = await checkDb();
+    dataBase!.delete("category",where: "id=?",whereArgs: [id]);
+  }
 
   void updateData() {}
 

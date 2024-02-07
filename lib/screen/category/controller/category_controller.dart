@@ -3,12 +3,14 @@ import 'package:get/get.dart';
 
 class CategoryController extends GetxController{
 
-RxList categoryList = [].obs;
+RxList<Map> categoryList =<Map>[].obs;
+RxnString selectedCategory = RxnString();
 
-void getCategory()async{
+Future<void> getCategory()async{
 
   DbHelper helper = DbHelper();
-  await helper.readCategory();
+  List<Map> category = await helper.readCategory();
+  categoryList.value = category;
 }
 
 }

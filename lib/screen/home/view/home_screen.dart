@@ -11,26 +11,47 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   HomeController controller = Get.put(HomeController());
+
   @override
+  void initState() {
+    super.initState();
+    controller.getData();
+  }
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Data Screen"),
         actions: [
-          IconButton(onPressed: (){
-            Get.toNamed("category");
-          }, icon: const Icon(Icons.category))
+          IconButton(
+              onPressed: () {
+                Get.toNamed("category");
+              },
+              icon: const Icon(Icons.category))
         ],
       ),
-      body:const Column(
+      body: Column(
         children: [
-
+          Expanded(
+            child: Obx(() => ListView.builder(
+                itemCount: controller.dataList.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    title: Text("${controller.dataList[index].title}",style:  TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
+                    trailing: Text("${controller.dataList[index].amount}",style:TextStyle(fontSize: 20,fontWeight: FontWeight.bold,color: controller.dataList[index].status=="0"?Colors.green:Colors.red),),
+                  );
+                },
+              ),
+            ),
+          )
         ],
-      ) ,
-      floatingActionButton: FloatingActionButton(onPressed: (){
-        Get.toNamed('incomeExpense');
-      },child: const Icon(Icons.add),),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Get.toNamed('incomeExpense');
+        },
+        child: const Icon(Icons.add),
+      ),
     );
   }
 }
