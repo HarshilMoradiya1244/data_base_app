@@ -44,9 +44,28 @@ class DbHelper {
     });
   }
 
+  void insertCategory({required String name})async{
+    dataBase = await checkDb();
+    dataBase!.insert("category", {"name":name});
+  }
+
+  Future<List<Map>> readCategory() async {
+    dataBase = await checkDb();
+    String query = "SELECT * FROM category";
+    List<Map> data = await dataBase!.rawQuery(query,null);
+    return data;
+  }
+
+  Future<List<DBModel>>  readIncomeExpense() async {
+    dataBase = await checkDb();
+    String query = "SELECT * FROM incomeExpense";
+    List<Map> data = await dataBase!.rawQuery(query,null);
+    List<DBModel> modelList = data.map((e) => DBModel.mapToModel(e)).toList();
+    return modelList;
+  }
+
   void deleteData() {}
 
   void updateData() {}
 
-  void readData() {}
 }

@@ -12,4 +12,17 @@ class DBModel {
     this.date,
     this.time,
   });
+
+  factory DBModel.mapToModel(Map m1) {
+    return DBModel(
+      id: m1['id'],
+      title: m1['title'],
+      category: m1['category'],
+      notes: m1['notes'],
+      status: m1['status'],
+      amount: m1['amount'],
+      date: m1['date'],
+      time: m1['time'],
+    );
+  }
 }

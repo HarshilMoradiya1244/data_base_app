@@ -4,7 +4,6 @@ import 'package:data_base/screen/home/view/incomeexpense_screen.dart';
 import 'package:data_base/screen/setting/view/setting_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class DashScreen extends StatefulWidget {
   const DashScreen({super.key});
