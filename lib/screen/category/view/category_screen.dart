@@ -57,9 +57,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                         children: [
                           ListTile(
                             title: Text("CAtegoryName"),
-                            trailing: IconButton(onPressed: (){},icon: Icon(Icons.delete_outline),),
+                            trailing: IconButton(onPressed: (){},icon: const Icon(Icons.delete_outline),),
                           ),
-                          Divider()
+                          const Divider()
                         ],
                       );
                     },
