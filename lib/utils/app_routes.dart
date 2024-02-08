@@ -4,6 +4,7 @@ import 'package:data_base/screen/home/view/home_screen.dart';
 import 'package:data_base/screen/graph/view/graph_screen.dart';
 import 'package:data_base/screen/data_add/view/incomeexpense_screen.dart';
 import 'package:data_base/screen/setting/view/setting_screen.dart';
+import 'package:data_base/screen/update/view/update_screen.dart';
 import 'package:flutter/material.dart';
 
 // ignore: non_constant_identifier_names
@@ -14,4 +15,5 @@ Map<String, WidgetBuilder> app_routes = {
   'graph': (context) => const GraphScreen(),
   'setting': (context) => const SettingScreen(),
   'category': (context) => const CategoryScreen(),
+  'update': (context) => const UpdateScreen(),
 };

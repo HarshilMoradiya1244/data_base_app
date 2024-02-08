@@ -1,5 +1,6 @@
 import 'package:data_base/model/incomeExpense_model.dart';
 import 'package:data_base/screen/category/controller/category_controller.dart';
+import 'package:data_base/screen/home/controller/home_controller.dart';
 import 'package:data_base/utils/dta_base_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -12,24 +13,33 @@ class IncomeExpenseScreen extends StatefulWidget {
 }
 
 class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
+  DBModel dbModel = Get.arguments;
   TextEditingController txtTitle = TextEditingController();
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtCategory = TextEditingController();
   TextEditingController txtNotes = TextEditingController();
   CategoryController controller = Get.put(CategoryController());
+  HomeController homeController = Get.put(HomeController());
 
   @override
   void initState() {
     super.initState();
     controller.getCategory();
+    if (dbModel != null) {
+      TextEditingController txtTitle = TextEditingController(text: dbModel.title);
+      TextEditingController txtAmount = TextEditingController(text: dbModel.amount);
+      TextEditingController txtNotes = TextEditingController(text: dbModel.notes);
+      controller.selectedCategory.value = dbModel.category;
+    }
   }
+
+  @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           centerTitle: true,
           title: const Text("Income Expanse"),
-
         ),
         body: Padding(
           padding: const EdgeInsets.all(10.0),
@@ -121,6 +131,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                         );
                         DbHelper dbHelper = DbHelper();
                         dbHelper.insertData(dbmodel);
+                        homeController.getData();
                         Get.back();
                       },
                       child: Container(
@@ -157,6 +168,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                         );
                         DbHelper dbHelper = DbHelper();
                         dbHelper.insertData(dbmodel);
+                        homeController.getData();
                         Get.back();
                       },
                       child: Container(

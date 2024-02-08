@@ -35,47 +35,52 @@ class _HomeScreenState extends State<HomeScreen> {
         () => ListView.builder(
           itemCount: controller.dataList.length,
           itemBuilder: (context, index) {
-            return Container(
-              margin: const EdgeInsets.all(10),
-              height: MediaQuery.sizeOf(context).height * 0.09,
-              width: MediaQuery.sizeOf(context).width,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.grey.shade200,
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(10.0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+            return InkWell(
+              onTap: (){
+                Get.toNamed("update",arguments: controller.dataList[index]);
+              },
+              child: Container(
+                margin: const EdgeInsets.all(10),
+                height: MediaQuery.sizeOf(context).height * 0.09,
+                width: MediaQuery.sizeOf(context).width,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(10),
+                  color: Colors.grey.shade200,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
 
-                      children: [
-                        Text("${controller.dataList[index].title}",
-                            style: const TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold)),
-                        const Text("Date : 7/01/24"),
-                      ],
-                    ),
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text("${controller.dataList[index].title}",
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold)),
+                          const Text("Date : 7/01/24"),
+                        ],
+                      ),
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
 
-                      children: [
-                        Text(
-                          "${controller.dataList[index].amount}",
-                          style: TextStyle(
-                              fontSize: 20,
-                              color: controller.dataList[index].status == 0
-                                  ? Colors.green
-                                  : Colors.red),
-                        ),
-                        const Text("Time : 5:00 PM"),
-                      ],
-                    ),
-                  ],
+                        children: [
+                          Text(
+                            "${controller.dataList[index].amount}",
+                            style: TextStyle(
+                                fontSize: 20,
+                                color: controller.dataList[index].status == 0
+                                    ? Colors.green
+                                    : Colors.red),
+                          ),
+                          const Text("Time : 5:00 PM"),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

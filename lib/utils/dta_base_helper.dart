@@ -43,6 +43,18 @@ class DbHelper {
       "status": dbModel.status,
     });
   }
+  Future<void> incomeExpenseUpdate(DBModel dbModel) async {
+    dataBase = await checkDb();
+    dataBase!.update("incomeExpense", {
+      "title": dbModel.title,
+      "amount": dbModel.amount,
+      "category": dbModel.category,
+      "notes": dbModel.notes,
+      "time": dbModel.time,
+      "date": dbModel.date,
+      "status": dbModel.status,
+    },where: "id=?",whereArgs: );
+  }
 
   void insertCategory({required String name})async{
     dataBase = await checkDb();
@@ -67,6 +79,10 @@ class DbHelper {
   Future<void> categoryDelete({required String id}) async {
     dataBase = await checkDb();
     dataBase!.delete("category",where: "id=?",whereArgs: [id]);
+  }
+  Future<void> incomeExpenseDelete({required String id}) async {
+    dataBase = await checkDb();
+    dataBase!.delete("incomeExpense",where: "id=?",whereArgs: [id]);
   }
 
   void updateData() {}
