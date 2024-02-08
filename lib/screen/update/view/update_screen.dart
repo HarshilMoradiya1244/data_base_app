@@ -81,6 +81,7 @@ class _UpdateScreenState extends State<UpdateScreen> {
                       onPressed: () {
                         DbHelper helper =DbHelper();
                         helper.incomeExpenseDelete(id: "${model.id}");
+                        Get.back();
                       },
                       child: const Text("Delete")),
                 ],

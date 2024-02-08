@@ -13,7 +13,7 @@ class IncomeExpenseScreen extends StatefulWidget {
 }
 
 class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
-  DBModel dbModel = Get.arguments;
+  DBModel? dbModel = Get.arguments;
   TextEditingController txtTitle = TextEditingController();
   TextEditingController txtAmount = TextEditingController();
   TextEditingController txtCategory = TextEditingController();
@@ -26,10 +26,14 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
     super.initState();
     controller.getCategory();
     if (dbModel != null) {
-      TextEditingController txtTitle = TextEditingController(text: dbModel.title);
-      TextEditingController txtAmount = TextEditingController(text: dbModel.amount);
-      TextEditingController txtNotes = TextEditingController(text: dbModel.notes);
-      controller.selectedCategory.value = dbModel.category;
+       txtTitle =
+          TextEditingController(text: dbModel!.title);
+       txtAmount =
+          TextEditingController(text: dbModel!.amount);
+       txtNotes =
+          TextEditingController(text: dbModel!.notes);
+      // controller.selectedCategory.value = dbModel!.category
+
     }
   }
 
@@ -129,10 +133,16 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                           notes: txtNotes.text,
                           status: 0,
                         );
-                        DbHelper dbHelper = DbHelper();
-                        dbHelper.insertData(dbmodel);
+                        if (dbModel == null) {
+                          DbHelper dbHelper = DbHelper();
+                          dbHelper.insertData(dbmodel);
+                        } else {
+                          DbHelper dbHelper = DbHelper();
+                          dbHelper.incomeExpenseUpdate(dbModel!);
+                        }
+
                         homeController.getData();
-                        Get.back();
+                        Get.toNamed('/');
                       },
                       child: Container(
                         height: MediaQuery.sizeOf(context).height * 0.06,
