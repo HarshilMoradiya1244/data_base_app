@@ -69,21 +69,36 @@ class _UpdateScreenState extends State<UpdateScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue),
-                      onPressed: () {
-                       Get.toNamed("incomeExpense",arguments: model);
-                      },
-                      child: const Text("Update")),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.blue),
+                    onPressed: () {
+                      Get.toNamed("incomeExpense", arguments: model);
+                    },
+                    child: const Text(
+                      "Update",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                   ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.red),
-                      onPressed: () {
-                        DbHelper helper =DbHelper();
-                        helper.incomeExpenseDelete(id: "${model.id}");
-                        Get.back();
-                      },
-                      child: const Text("Delete")),
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    onPressed: () {
+                      DbHelper helper = DbHelper();
+                      helper.incomeExpenseDelete(id: "${model.id}");
+                      controller.getData();
+                      Get.back();
+                    },
+                    child: const Text(
+                      "Delete",
+                      style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white),
+                    ),
+                  ),
                 ],
               ),
             ],
