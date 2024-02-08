@@ -127,6 +127,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                     child: InkWell(
                       onTap: () {
                         DBModel model = DBModel(
+                          id: dbModel!.id,
                           title: txtTitle.text,
                           amount: txtAmount.text,
                           category: txtCategory.text,
@@ -170,15 +171,21 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                   Expanded(
                     child: InkWell(
                       onTap: () {
-                        DBModel dbmodel = DBModel(
+                        DBModel model = DBModel(
+                          id: dbModel!.id,
                           title: txtTitle.text,
                           amount: txtAmount.text,
                           category: txtCategory.text,
                           notes: txtNotes.text,
                           status: 1,
                         );
-                        DbHelper dbHelper = DbHelper();
-                        dbHelper.insertData(dbmodel);
+                        if (dbModel == null) {
+                          DbHelper dbHelper = DbHelper();
+                          dbHelper.insertData(model);
+                        } else {
+                          DbHelper dbHelper = DbHelper();
+                          dbHelper.incomeExpenseUpdate(model);
+                        }
                         homeController.getData();
                         Get.back();
                       },
