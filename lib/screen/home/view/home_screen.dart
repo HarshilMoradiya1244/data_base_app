@@ -26,6 +26,10 @@ class _HomeScreenState extends State<HomeScreen> {
         actions: [
           IconButton(
               onPressed: () {
+                showFilterDialog();
+              }, icon: const Icon(Icons.filter_alt_outlined)),
+          IconButton(
+              onPressed: () {
                 Get.toNamed("category");
               },
               icon: const Icon(Icons.category))
@@ -39,10 +43,9 @@ class _HomeScreenState extends State<HomeScreen> {
             elevation: MaterialStateProperty.all(1),
             backgroundColor: MaterialStateProperty.all(Colors.white),
             onChanged: (value) {
-              if(value.isEmpty){
+              if (value.isEmpty) {
                 controller.getData();
-              }
-              else{
+              } else {
                 controller.liveSearch(value);
               }
             },
@@ -53,8 +56,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemCount: controller.dataList.length,
                 itemBuilder: (context, index) {
                   return InkWell(
-                    onTap: (){
-                      Get.toNamed("update",arguments: controller.dataList[index]);
+                    onTap: () {
+                      Get.toNamed("update",
+                          arguments: controller.dataList[index]);
                     },
                     child: Container(
                       margin: const EdgeInsets.all(10),
@@ -72,26 +76,26 @@ class _HomeScreenState extends State<HomeScreen> {
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               children: [
                                 Text("${controller.dataList[index].title}",
                                     style: const TextStyle(
-                                        fontSize: 20, fontWeight: FontWeight.bold)),
+                                        fontSize: 20,
+                                        fontWeight: FontWeight.bold)),
                                 const Text("Date : 7/01/24"),
                               ],
                             ),
                             Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.start,
-
                               children: [
                                 Text(
                                   "${controller.dataList[index].amount}",
                                   style: TextStyle(
                                       fontSize: 20,
-                                      color: controller.dataList[index].status == 0
-                                          ? Colors.green
-                                          : Colors.red),
+                                      color:
+                                          controller.dataList[index].status == 0
+                                              ? Colors.green
+                                              : Colors.red),
                                 ),
                                 const Text("Time : 5:00 PM"),
                               ],
@@ -114,6 +118,36 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.add),
       ),
     );
+  }
+  void showFilterDialog(){
+    showDialog(context:context , builder: (context) {
+      return  AlertDialog(
+        title: const Text("Filter"),
+        content: Column(
+          children: [
+            Row(
+              children: [
+                ActionChip(label: const Text("All"),
+                onPressed: (){
+                  controller.getData();
+                  Get.back();
+                },),
+                ActionChip(label: const Text("Income"),
+                onPressed: (){
+                  controller.filterData(0);
+                  Get.back();
+                },),
+                ActionChip(label: const Text("Expense"),
+                onPressed: (){
+                  controller.filterData(1);
+                  Get.back();
+                },),
+              ],
+            )
+          ],
+        ),
+      );
+    },);
   }
 }
 // return Column(

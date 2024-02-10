@@ -209,7 +209,7 @@ class _IncomeExpenseScreenState extends State<IncomeExpenseScreen> {
                     ),
                   ),
                 ],
-              )
+              ),
             ],
           ),
         ),

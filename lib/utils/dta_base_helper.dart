@@ -92,9 +92,9 @@ class DbHelper {
     dataBase!.delete("incomeExpense", where: "id=?", whereArgs: [id]);
   }
 
-  Future<List<DBModel>> liveSearchIncomeExpense({required String category}) async {
+  Future<List<DBModel>> filterIncomeExpense({required int status}) async {
     dataBase = await checkDb();
-    String query = "SELECT * FROM incomeExpense where category = '$category";
+    String query = "SELECT * FROM incomeExpense where status = '$status";
     List<Map> data = await dataBase!.rawQuery(query,null);
     List<DBModel> searchList = data.map((e) => DBModel.mapToModel(e)).toList();
     return searchList;

@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 class HomeController extends GetxController {
   RxList<DBModel> dataList = <DBModel>[].obs;
-  List filterList = [];
+  List<DBModel> filterList = [];
 
   Future<void> getData() async {
     DbHelper helper = DbHelper();
@@ -20,5 +20,10 @@ class HomeController extends GetxController {
       }
     }
     dataList.value = List.from(filterList);
+  }
+  Future<void> filterData(int status) async {
+    DbHelper helper = DbHelper();
+    List<DBModel> data = await helper.filterIncomeExpense(status: status);
+    dataList.value = data;
   }
 }
