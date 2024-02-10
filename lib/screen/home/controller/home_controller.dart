@@ -21,6 +21,7 @@ class HomeController extends GetxController {
     }
     dataList.value = List.from(filterList);
   }
+
   Future<void> filterData(int status) async {
     DbHelper helper = DbHelper();
     List<DBModel> data = await helper.filterIncomeExpense(status: status);
